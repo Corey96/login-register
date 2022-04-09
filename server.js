@@ -4,8 +4,11 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 
 const initializePassport = require('./passport-config')
-initializePassport(passport)
+passport.initialize(
+    passport,
+    email => users.find(user => user.email === email))
 
+// saving to local variables and not database - needs changing***
 const users = []
 
 app.set('view-engine', 'ejs')
@@ -27,6 +30,10 @@ app.get('/register', (req, res) => {
     res.render('register.ejs')
 })
 
+// Register user
+// creating hashed password with bcrypt / will need changing to database
+// if got database will be auto generated ???
+
 app.post('/register', async (req, res) => {
    try {
        const hashedPassword = await bcrypt.hash(req.body.password, 10) 
@@ -40,6 +47,36 @@ app.post('/register', async (req, res) => {
    } catch {
        res.redirect('/register')
    }
+   console.log(users)
 })
 
+
+
+
 app.listen(3000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
