@@ -21,10 +21,10 @@ const users = []
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
-app.use(flash)()
+app.use(flash());
 // broke at this part i think 
 app.use(session({
-    secret: Process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     reSave: false,
     saveUnitialized: false,
 }))
